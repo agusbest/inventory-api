@@ -24,9 +24,9 @@ public class AuthService
         _configuration = configuration;
     }
 
-    public async Task<bool> RegisterAsync(
-        string username,
-        string password)
+   public async Task<bool> RegisterAsync(
+    string username,
+    string password)
     {
         username = username.Trim();
 
@@ -39,7 +39,8 @@ public class AuthService
         var user = new User
         {
             Username = username,
-            Role = "User"
+            Role = "User",
+            CreatedAt = DateTime.UtcNow
         };
 
         user.PasswordHash =
