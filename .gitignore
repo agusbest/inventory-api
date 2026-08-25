@@ -4,6 +4,7 @@
 **/.vs/
 **/*.user
 **/*.suo
+**/appsettings.json
 
 # Node / React
 **/node_modules/
