@@ -14,7 +14,7 @@ builder.Services.AddCors(options =>
         policy
             .WithOrigins(
                 "http://localhost:5173",
-                "https://inventory-api-dev.vercel.app"
+                 "https://inventory-api-orcin.vercel.app"
             )
             .AllowAnyHeader()
             .AllowAnyMethod();
