@@ -109,13 +109,11 @@ public class AuthService
 
         var jwt = _configuration.GetSection("Jwt");
 
-        var key = jwt["Key"]
-            ?? throw new InvalidOperationException(
-                "JWT key is not configured.");
+var key = jwt["Key"]
+    ?? throw new InvalidOperationException("JWT key is not configured.");
 
-        var issuer = jwt["Issuer"];
-
-        var audience = jwt["Audience"];
+var issuer = jwt["Issuer"];
+var audience = jwt["Audience"];
 
         var expirationMinutes =
             int.Parse(jwt["ExpirationMinutes"] ?? "60");
@@ -148,11 +146,11 @@ public class AuthService
                 SecurityAlgorithms.HmacSha256);
 
         var token = new JwtSecurityToken(
-            issuer,
-            audience,
-            claims,
-            expires: expiresAt,
-            signingCredentials: credentials);
+    issuer,
+    audience,
+    claims,
+    expires: expiresAt,
+    signingCredentials: credentials);
 
         return new LoginResponse
         {
