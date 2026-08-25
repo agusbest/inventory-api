@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
+
 namespace InventoryApi.Services;
 
 public class AuthService
@@ -15,44 +16,76 @@ public class AuthService
     private readonly AppDbContext _context;
     private readonly IConfiguration _configuration;
     private readonly PasswordHasher<User> _passwordHasher = new();
+    private readonly ILogger<AuthService> _logger;
 
     public AuthService(
         AppDbContext context,
-        IConfiguration configuration)
+        IConfiguration configuration,
+        ILogger<AuthService> logger)
     {
         _context = context;
         _configuration = configuration;
+         _logger = logger;
     }
 
    public async Task<bool> RegisterAsync(
     string username,
     string password)
     {
-        username = username.Trim();
-
-        var exists = await _context.Users
-            .AnyAsync(u => u.Username == username);
-
-        if (exists)
-            return false;
-
-        var user = new User
+        try
         {
-            Username = username,
-            Role = "User",
-            CreatedAt = DateTime.UtcNow
-        };
+            username = username.Trim();
 
-        user.PasswordHash =
-            _passwordHasher.HashPassword(
-                user,
-                password);
+            _logger.LogInformation(
+                "Register started for username: {Username}",
+                username);
 
-        _context.Users.Add(user);
+            var exists = await _context.Users
+                .AnyAsync(u => u.Username == username);
 
-        await _context.SaveChangesAsync();
+            _logger.LogInformation(
+                "User exists: {Exists}",
+                exists);
 
-        return true;
+            if (exists)
+                return false;
+
+            var user = new User
+            {
+                Username = username,
+                Role = "User",
+                CreatedAt = DateTime.UtcNow
+            };
+
+            _logger.LogInformation("Creating password hash");
+
+            user.PasswordHash =
+                _passwordHasher.HashPassword(
+                    user,
+                    password);
+
+            _context.Users.Add(user);
+
+            _logger.LogInformation(
+                "Saving user to database");
+
+            await _context.SaveChangesAsync();
+
+            _logger.LogInformation(
+                "Register successful for username: {Username}",
+                username);
+
+            return true;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(
+                ex,
+                "Register failed for username: {Username}",
+                username);
+
+            throw;
+        }
     }
 
     public async Task<LoginResponse?> LoginAsync(
