@@ -681,8 +681,8 @@ export default function Stock() {
             {showModal && (
                 <>
                     <div className="modal fade show d-block">
-                        <div className="modal-dialog">
-                            <div className="modal-content">
+                        <div className="modal-dialog modal-dialog-centered px-3">
+                            <div className="modal-content rounded-4 shadow border-0">
                                 <form
                                     onSubmit={handleSubmit}
                                 >

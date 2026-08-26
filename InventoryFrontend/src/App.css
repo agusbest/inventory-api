@@ -402,3 +402,83 @@
   font-weight: 700;
   line-height: 1.1;
 }
+
+.login-page {
+  background: #f5f7fb;
+}
+
+.login-card {
+  border-radius: 22px !important;
+  overflow: hidden;
+}
+
+.login-input {
+  min-height: 46px;
+  border-radius: 10px;
+  border: 1px solid #dee2e6;
+}
+
+.login-input:focus {
+  box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.1);
+}
+
+.login-button {
+  min-height: 46px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+/* Tampilan HP */
+@media (max-width: 576px) {
+  .login-page {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+    padding-top: 24px !important;
+    padding-bottom: 24px !important;
+  }
+
+  .login-card {
+    border-radius: 20px !important;
+  }
+
+  .login-card .card-body {
+    padding: 28px 22px !important;
+  }
+}
+
+/* Product Modal */
+.modal-dialog {
+  max-width: 500px;
+}
+
+/* Mobile */
+@media (max-width: 576px) {
+  .modal-dialog {
+    margin: 1rem auto;
+    min-height: calc(100% - 2rem);
+    display: flex;
+    align-items: center;
+  }
+
+  .modal-content {
+    width: 100%;
+  }
+
+  .modal-header {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  .modal-body {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  .modal-footer {
+    gap: 0.5rem;
+  }
+
+  .modal-footer button {
+    flex: 1;
+  }
+}
